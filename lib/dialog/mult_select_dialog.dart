@@ -306,6 +306,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               )
             : Container(
               padding: EdgeInsets.only(left: 16, right: 16),
+              child:
               SingleChildScrollView(
                 child: Wrap(
                   children: _items.map(_buildChipItem).toList(),
