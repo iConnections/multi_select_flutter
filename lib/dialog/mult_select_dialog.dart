@@ -221,8 +221,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  _showSearch
-                      ? Expanded(
+                Expanded(
                           child: Container(
                             padding: EdgeInsets.only(left: 10),
                             child: TextField(
@@ -245,17 +244,14 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                               },
                             ),
                           ),
-                        )
-                      : widget.title ?? Text("Select"),
+                        ),
                   IconButton(
-                    icon: _showSearch
-                        ? widget.closeSearchIcon ?? Icon(Icons.close)
-                        : widget.searchIcon ?? Icon(Icons.search),
+                    icon:  widget.closeSearchIcon ?? Icon(Icons.close)
                     onPressed: () {
-                      setState(() {
-                        _showSearch = !_showSearch;
-                        if (!_showSearch) _items = widget.items;
-                      });
+//                       setState(() {
+//                         _showSearch = !_showSearch;
+//                         if (!_showSearch) _items = widget.items;
+//                       });
                     },
                   ),
                 ],
@@ -268,6 +264,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
       insetPadding: const EdgeInsets.all(16.0),
       content: Container(
         height: widget.height,
+        width: MedaiQuery.of(context).size.width - 32,
         child: widget.listType == null ||
                 widget.listType == MultiSelectListType.LIST
             ? ListView.builder(
