@@ -202,6 +202,11 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: widget.backgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(16),
+        ),
+      ),
       title: widget.searchable == false
           ? widget.title ?? Text("Select")
           : Container(
@@ -251,10 +256,10 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
       contentPadding:
           widget.listType == null || widget.listType == MultiSelectListType.LIST
               ? EdgeInsets.only(top: 12.0)
-              : EdgeInsets.all(20),
+              : EdgeInsets.all(16),
       content: Container(
         height: widget.height,
-        width: MediaQuery.of(context).size.width * 0.72,
+        width: MediaQuery.of(context).size.width -32,
         child: widget.listType == null ||
                 widget.listType == MultiSelectListType.LIST
             ? ListView.builder(
