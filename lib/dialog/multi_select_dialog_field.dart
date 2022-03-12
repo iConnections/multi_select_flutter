@@ -353,8 +353,6 @@ class __MultiSelectDialogFieldViewState<V>
           closeSearchIcon: widget.closeSearchIcon,
           unselectedColor: widget.unselectedColor,
           backgroundColor: widget.backgroundColor,
-          isDark: widget.isDark,
-          buttonText: widget.buttonString,
           colorator: widget.colorator,
           searchHint: widget.searchHint,
           selectedColor: widget.selectedColor,
