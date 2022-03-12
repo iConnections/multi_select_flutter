@@ -304,7 +304,9 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   return _buildListItem(_items[index]);
                 },
               )
-            : Column(
+            : Container(
+              height: MediaQuery.of(context).size.height - 144,
+              Column(
               children:[
             Expanded(
               child:
@@ -316,6 +318,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
            ),
               ),
                 ],
+              ),
               ),
           ],
                       ),
