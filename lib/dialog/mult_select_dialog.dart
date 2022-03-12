@@ -214,9 +214,18 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
         borderRadius: BorderRadius.all(
           Radius.circular(16),
         ),
-      ),title:
-      Container(
-              child: Column(children:[
+      ), 
+      contentPadding:
+          widget.listType == null || widget.listType == MultiSelectListType.LIST
+              ? EdgeInsets.only(top: 12.0)
+              : EdgeInsets.zero,
+      insetPadding: const EdgeInsets.all(16.0),
+      content: Container(
+        padding: EdgeInsets.only(left: 16, right: 16),
+        height: widget.height,
+        width: MediaQuery.of(context).size.width - 32,
+        child: Column(children:[
+        Column(children:[
                 widget.title!,
                         Container(
             height: 1,
@@ -286,17 +295,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               ),
                 ],
                             ),
-            ),
-      contentPadding:
-          widget.listType == null || widget.listType == MultiSelectListType.LIST
-              ? EdgeInsets.only(top: 12.0)
-              : EdgeInsets.zero,
-//       insetPadding: const EdgeInsets.all(16.0),
-      content: Container(
-        padding: EdgeInsets.only(left: 16, right: 16),
-        height: widget.height,
-        width: MediaQuery.of(context).size.width - 32,
-        child: widget.listType == null ||
+        widget.listType == null ||
                 widget.listType == MultiSelectListType.LIST
             ? ListView.builder(
                 itemCount: _items.length,
@@ -309,6 +308,8 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   children: _items.map(_buildChipItem).toList(),
                 ),
               ),
+          ],
+                      ),
       ),
       actions: <Widget>[
         Column(children:[
