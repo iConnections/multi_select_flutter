@@ -101,8 +101,8 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
     this.searchTextStyle,
     this.selectedItemsTextStyle,
     this.checkColor,
-    required this.buttonText,
-    required this.isDark,
+     this.buttonText = 'OK',
+     this.isDark = false,
   });
 
   @override
