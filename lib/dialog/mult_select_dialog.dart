@@ -256,10 +256,10 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
       contentPadding:
           widget.listType == null || widget.listType == MultiSelectListType.LIST
               ? EdgeInsets.only(top: 12.0)
-              : EdgeInsets.all(16),
+              : EdgeInsets.zero,
+      insetPadding: const EdgeInsets.all(16.0),
       content: Container(
         height: widget.height,
-        width: MediaQuery.of(context).size.width -32,
         child: widget.listType == null ||
                 widget.listType == MultiSelectListType.LIST
             ? ListView.builder(
