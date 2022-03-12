@@ -221,11 +221,12 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               : EdgeInsets.zero,
       insetPadding: const EdgeInsets.all(16.0),
       content: Container(
-        padding: EdgeInsets.only(left: 16, right: 16),
         height: widget.height,
-        width: MediaQuery.of(context).size.width - 32,
-        child: Column(children:[
-        Column(children:[
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children:[
+        Column(
+          children:[
                 widget.title!,
                         Container(
             height: 1,
@@ -303,10 +304,13 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   return _buildListItem(_items[index]);
                 },
               )
-            : SingleChildScrollView(
+            : Container(
+              padding: EdgeInsets.only(left: 16, right: 16),
+              SingleChildScrollView(
                 child: Wrap(
                   children: _items.map(_buildChipItem).toList(),
                 ),
+              ),
               ),
           ],
                       ),
