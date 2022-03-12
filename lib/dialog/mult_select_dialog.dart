@@ -374,7 +374,7 @@ class CustomDefaultButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) {
-                return disabled ? kDarkThemeGrey : pressedColor;
+                return disabled ? Color(0xff6C768E) : pressedColor;
               }
               return disabled ? Color(0xff6C768E) : Colors.transparent;
             },
