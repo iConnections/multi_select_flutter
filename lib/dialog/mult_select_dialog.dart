@@ -217,7 +217,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
       ),title:
       Container(
               child: Column(children:[
-                widget!.title,
+                widget.title!,
                         Container(
             height: 1,
                 decoration: BoxDecoration(
