@@ -285,6 +285,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
       actions: <Widget>[
         Column(children:[
           Container(
+            height: 1,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.centerLeft,
@@ -304,7 +305,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
    CustomDefaultButton(
      isDark: widget.isDark,
      title: widget.buttonText,
-     width: MediaQuery.of(context).size.width/3,
+     width: MediaQuery.of(context).size.width/1.5,
      
           onPressed: () {
             widget.onConfirmTap(context, _selectedValues, widget.onConfirm);
