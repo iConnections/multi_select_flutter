@@ -304,7 +304,9 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   return _buildListItem(_items[index]);
                 },
               )
-            : Expanded(
+            : Column(
+              children:[
+            Expanded(
               child:
               SingleChildScrollView(
                 padding: EdgeInsets.only(left: 16, right: 16),
@@ -312,6 +314,8 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   children: _items.map(_buildChipItem).toList(),
                 ),
            ),
+              ),
+                ],
               ),
           ],
                       ),
