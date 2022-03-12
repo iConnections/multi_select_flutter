@@ -285,11 +285,6 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
       actions: <Widget>[
         Column(children:[
           Container(
-                margin: title != null
-                    ? const EdgeInsets.only(left: 16, right: 16)
-                    : margin,
-                padding: padding,
-                height: height,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.centerLeft,
