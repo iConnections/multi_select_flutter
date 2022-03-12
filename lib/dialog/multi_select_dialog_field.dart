@@ -187,6 +187,8 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
   final Text? cancelText;
   final Color? barrierColor;
   final Color? selectedColor;
+  final bool isDark;
+  final String buttonText;
   final double? height;
   final String? searchHint;
   final Color Function(V)? colorator;
@@ -224,6 +226,8 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
     this.unselectedColor,
     this.searchIcon,
     this.closeSearchIcon,
+    required this.isDark,
+    required this.buttonText,
     this.itemsTextStyle,
     this.searchTextStyle,
     this.searchHintStyle,
@@ -352,6 +356,8 @@ class __MultiSelectDialogFieldViewState<V>
           closeSearchIcon: widget.closeSearchIcon,
           unselectedColor: widget.unselectedColor,
           backgroundColor: widget.backgroundColor,
+          isDark: widget.isDark,
+          buttonText: widget.buttonText,
           colorator: widget.colorator,
           searchHint: widget.searchHint,
           selectedColor: widget.selectedColor,
