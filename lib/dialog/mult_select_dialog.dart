@@ -336,7 +336,7 @@ class CustomDefaultButton extends StatelessWidget {
   end: Alignment(-1, 2),
   colors: [Color(0xff692B7E), Color(0xff16061E)],
 ),
-        pressedColor = isDark ? Color(0xff9E41BD) : Color(0xff692B7E),
+        pressedColor = isDark ? const Color(0xff9E41BD) : const Color(0xff692B7E),
         super(key: key);
 
   @override
