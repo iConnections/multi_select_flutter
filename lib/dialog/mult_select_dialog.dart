@@ -246,7 +246,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                           ),
                         ),
                   IconButton(
-                    icon:  widget.closeSearchIcon ?? Icon(Icons.close)
+                    icon:  widget.closeSearchIcon ?? Icon(Icons.close),
                     onPressed: () {
 //                       setState(() {
 //                         _showSearch = !_showSearch;
