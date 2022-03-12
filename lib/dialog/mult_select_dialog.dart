@@ -215,10 +215,24 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
           Radius.circular(16),
         ),
       ),
-      title: widget.searchable == false
-          ? widget.title ?? Text("Select")
-          : Container(
-              child: Row(
+      Container(
+              child: Column(children:[
+                widget.title,
+                        Container(
+            height: 1,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors:  const [
+                            Color.fromRGBO(48, 132, 215, 0.08),
+                            Color.fromRGBO(48, 132, 215, 0.4),
+                            Color.fromRGBO(36, 215, 204, 0.08)
+                          ],
+                  ),
+                ),
+              ),
+                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                 Expanded(
@@ -256,6 +270,22 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   ),
                 ],
               ),
+                        Container(
+            height: 1,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors:  const [
+                            Color.fromRGBO(48, 132, 215, 0.08),
+                            Color.fromRGBO(48, 132, 215, 0.4),
+                            Color.fromRGBO(36, 215, 204, 0.08)
+                          ],
+                  ),
+                ),
+              ),
+                ],
+                            ),
             ),
       contentPadding:
           widget.listType == null || widget.listType == MultiSelectListType.LIST
