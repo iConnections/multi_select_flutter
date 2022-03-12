@@ -304,23 +304,13 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   return _buildListItem(_items[index]);
                 },
               )
-            : Container(
-              height: MediaQuery.of(context).size.height - 144,
-              child:
-              Column(
-              children:[
-            Expanded(
-              child:
+            : 
               SingleChildScrollView(
                 padding: EdgeInsets.only(left: 16, right: 16),
                 child: Wrap(
                   children: _items.map(_buildChipItem).toList(),
                 ),
            ),
-              ),
-                ],
-              ),
-              ),
           ],
                       ),
       ),
