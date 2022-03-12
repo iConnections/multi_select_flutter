@@ -293,7 +293,11 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               ? EdgeInsets.only(top: 12.0)
               : EdgeInsets.zero,
       insetPadding: const EdgeInsets.all(16.0),
-      content: Column(
+      content:Container(
+            height: widget.height,
+        width: MediaQuery.of(context).size.width - 32,
+      child:
+      Column(
         children:[
       Container(
         padding: EdgeInsets.only(left: 16, right: 16),
@@ -328,6 +332,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                 ),
               ),
           ],
+        ),
         ),
       actions: <Widget>[
         Column(children:[
