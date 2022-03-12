@@ -214,7 +214,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
         borderRadius: BorderRadius.all(
           Radius.circular(16),
         ),
-      ),
+      ),title:
       Container(
               child: Column(children:[
                 widget.title,
