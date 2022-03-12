@@ -209,24 +209,15 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      titlePadding: EdgeInsets.zero,
       backgroundColor: widget.backgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(16),
         ),
-      ), 
-      contentPadding:
-          widget.listType == null || widget.listType == MultiSelectListType.LIST
-              ? EdgeInsets.only(top: 12.0)
-              : EdgeInsets.zero,
-      insetPadding: const EdgeInsets.all(16.0),
-      content: Container(
-        height: widget.height,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children:[
-        Column(
-          children:[
+      ),title:
+      Container(
+              child: Column(children:[
                 widget.title!,
                         Container(
             height: 1,
@@ -296,7 +287,17 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               ),
                 ],
                             ),
-        widget.listType == null ||
+            ),
+      contentPadding:
+          widget.listType == null || widget.listType == MultiSelectListType.LIST
+              ? EdgeInsets.only(top: 12.0)
+              : EdgeInsets.zero,
+      insetPadding: const EdgeInsets.all(16.0),
+      content: Container(
+        padding: EdgeInsets.only(left: 16, right: 16),
+        height: widget.height,
+        width: MediaQuery.of(context).size.width - 32,
+        child: widget.listType == null ||
                 widget.listType == MultiSelectListType.LIST
             ? ListView.builder(
                 itemCount: _items.length,
@@ -304,15 +305,11 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   return _buildListItem(_items[index]);
                 },
               )
-            : 
-              SingleChildScrollView(
-                padding: EdgeInsets.only(left: 16, right: 16),
+            : SingleChildScrollView(
                 child: Wrap(
                   children: _items.map(_buildChipItem).toList(),
                 ),
-           ),
-          ],
-                      ),
+              ),
       ),
       actions: <Widget>[
         Column(children:[
@@ -465,4 +462,3 @@ class CustomDefaultButton extends StatelessWidget {
     );
   }
 }
-
