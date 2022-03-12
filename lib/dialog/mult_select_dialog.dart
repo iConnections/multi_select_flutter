@@ -283,15 +283,42 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               ),
       ),
       actions: <Widget>[
+        Column(children:[
+          Container(
+                margin: title != null
+                    ? const EdgeInsets.only(left: 16, right: 16)
+                    : margin,
+                padding: padding,
+                height: height,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors:  const [
+                            Color.fromRGBO(48, 132, 215, 0.08),
+                            Color.fromRGBO(48, 132, 215, 0.4),
+                            Color.fromRGBO(36, 215, 204, 0.08)
+                          ],
+                  ),
+                ),
+              ),
+        Center(child:
+               Container(
+                 margin: EdgeInsets.only(top: 16, bottom: 16),
+                 child:
    CustomDefaultButton(
      isDark: widget.isDark,
      title: widget.buttonText,
-     width: MediaQuery.of(context).size.width/2,
+     width: MediaQuery.of(context).size.width/3,
      
           onPressed: () {
             widget.onConfirmTap(context, _selectedValues, widget.onConfirm);
           },
-        )
+        ),
+                 ),
+               ),
+          ],
+               ),
       ],
     );
   }
