@@ -316,7 +316,7 @@ class CustomDefaultButton extends StatelessWidget {
 
   const CustomDefaultButton({
     Key? key,
-    Color pressedColor = Color(0xff692B7E),
+    Color pressedColor = const Color(0xff692B7E),
     required this.isDark,
     required this.title,
     required this.onPressed,
@@ -331,10 +331,10 @@ class CustomDefaultButton extends StatelessWidget {
     this.borderRadius = 10,
     this.shrinkText = false,
     this.noShadow = false,
-  })  : colorGradient = LinearGradient(
+  })  : colorGradient = const LinearGradient(
   begin: Alignment(0, -2),
   end: Alignment(-1, 2),
-  colors: [kMainColor, Color(0xff16061E)],
+  colors: [Color(0xff692B7E), Color(0xff16061E)],
 ),
         pressedColor = isDark ? Color(0xff9E41BD) : Color(0xff692B7E),
         super(key: key);
@@ -357,11 +357,6 @@ class CustomDefaultButton extends StatelessWidget {
 )
                       : colorGradient,
               borderRadius: BorderRadius.circular(borderRadius),
-              // boxShadow: [BoxShadow(
-  color: Color(0xff1E2E3A),
-  offset: Offset(2, 4),
-  blurRadius: 12,
-)],
             ),
       child: ElevatedButton(
         onPressed: onPressed,
