@@ -293,7 +293,9 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               ? EdgeInsets.only(top: 12.0)
               : EdgeInsets.zero,
       insetPadding: const EdgeInsets.all(16.0),
-      content: Container(
+      content: Column(
+        children:[
+      Container(
         padding: EdgeInsets.only(left: 16, right: 16),
         height: widget.height,
         width: MediaQuery.of(context).size.width - 32,
@@ -311,9 +313,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                 ),
               ),
       ),
-      actions: <Widget>[
-        Column(children:[
-          Container(
+                 Container(
             height: 1,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -327,6 +327,10 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   ),
                 ),
               ),
+          ],
+        ),
+      actions: <Widget>[
+        Column(children:[
         Center(child:
                Container(
                  margin: EdgeInsets.only(top: 16, bottom: 16),
