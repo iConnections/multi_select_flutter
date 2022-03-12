@@ -16,6 +16,9 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
 
   /// Set text that is displayed on the button.
   final Text? buttonText;
+  
+  final String buttonString;
+  final bool isDark;
 
   /// Specify the button icon.
   final Icon? buttonIcon;
@@ -100,6 +103,8 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
   MultiSelectDialogField({
     required this.items,
     required this.onConfirm,
+    required this.buttonString,
+    required this.isDark,
     this.title,
     this.buttonText,
     this.buttonIcon,
@@ -187,8 +192,6 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
   final Text? cancelText;
   final Color? barrierColor;
   final Color? selectedColor;
-  final bool isDark;
-  final String buttonString;
   final double? height;
   final String? searchHint;
   final Color Function(V)? colorator;
@@ -226,8 +229,6 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
     this.unselectedColor,
     this.searchIcon,
     this.closeSearchIcon,
-    required this.isDark,
-    required this.buttonString,
     this.itemsTextStyle,
     this.searchTextStyle,
     this.searchHintStyle,
