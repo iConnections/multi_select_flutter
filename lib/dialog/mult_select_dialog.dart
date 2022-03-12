@@ -306,6 +306,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               )
             : Container(
               height: MediaQuery.of(context).size.height - 144,
+              child:
               Column(
               children:[
             Expanded(
