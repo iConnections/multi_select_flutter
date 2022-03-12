@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../util/multi_select_actions.dart';
 import '../util/multi_select_item.dart';
 import '../util/multi_select_list_type.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+
 
 /// A dialog containing either a classic checkbox style list, or a chip style list.
 class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
@@ -28,6 +30,10 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
 
   /// Text on the cancel button.
   final Text? cancelText;
+  
+  final String buttonText;
+  
+  final bool isDark;
 
   /// An enum that determines which type of list to render.
   final MultiSelectListType? listType;
@@ -95,6 +101,8 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
     this.searchTextStyle,
     this.selectedItemsTextStyle,
     this.checkColor,
+    required this.buttonText,
+    required this.isDark,
   });
 
   @override
@@ -256,7 +264,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
       contentPadding:
           widget.listType == null || widget.listType == MultiSelectListType.LIST
               ? EdgeInsets.only(top: 12.0)
-              : EdgeInsets.zero,
+              : EdgeInsets.only(left: 16, right: 16),
       insetPadding: const EdgeInsets.all(16.0),
       content: Container(
         height: widget.height,
@@ -275,32 +283,11 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               ),
       ),
       actions: <Widget>[
-        TextButton(
-          child: widget.cancelText ??
-              Text(
-                "CANCEL",
-                style: TextStyle(
-                  color: (widget.selectedColor != null &&
-                          widget.selectedColor != Colors.transparent)
-                      ? widget.selectedColor!.withOpacity(1)
-                      : Theme.of(context).primaryColor,
-                ),
-              ),
-          onPressed: () {
-            widget.onCancelTap(context, widget.initialValue!);
-          },
-        ),
-        TextButton(
-          child: widget.confirmText ??
-              Text(
-                'OK',
-                style: TextStyle(
-                  color: (widget.selectedColor != null &&
-                          widget.selectedColor != Colors.transparent)
-                      ? widget.selectedColor!.withOpacity(1)
-                      : Theme.of(context).primaryColor,
-                ),
-              ),
+   CustomDefaultButton(
+     isDark: widget.isDark,
+     title: widget.buttonText,
+     width: MediaQuery.of(context).size.width/2,
+     
           onPressed: () {
             widget.onConfirmTap(context, _selectedValues, widget.onConfirm);
           },
@@ -309,3 +296,123 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
     );
   }
 }
+
+class CustomDefaultButton extends StatelessWidget {
+  final bool isDark;
+  final String title;
+  final VoidCallback onPressed;
+  final bool disabled;
+  final LinearGradient colorGradient;
+  final Color pressedColor;
+  final double height;
+  final double? width;
+  final bool customContent;
+  final Widget? customContentWidget;
+  final double borderRadius;
+  final bool shrinkText;
+  final Color? changeColor;
+  final double? padding;
+  final bool noShadow;
+
+  const CustomDefaultButton({
+    Key? key,
+    Color pressedColor = Color(0xff692B7E),
+    required this.isDark,
+    required this.title,
+    required this.onPressed,
+    this.customContentWidget,
+    this.changeColor,
+    this.padding,
+    this.disabled = false,
+    LinearGradient? colorGradient,
+    this.height = 48,
+    this.width,
+    this.customContent = false,
+    this.borderRadius = 10,
+    this.shrinkText = false,
+    this.noShadow = false,
+  })  : colorGradient = LinearGradient(
+  begin: Alignment(0, -2),
+  end: Alignment(-1, 2),
+  colors: [kMainColor, Color(0xff16061E)],
+),
+        pressedColor = isDark ? Color(0xff9E41BD) : Color(0xff692B7E),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: width,
+      decoration: disabled
+          ? const BoxDecoration(color: Colors.transparent)
+          : BoxDecoration(
+              gradient: changeColor != null
+                  ? LinearGradient(colors: [changeColor!, changeColor!])
+                  : isDark
+                      ? LinearGradient(
+  begin: Alignment(-2, -1),
+  end: Alignment(1, 1),
+  colors: [Color(0xff7D4092), Color(0xffE288FF)],
+)
+                      : colorGradient,
+              borderRadius: BorderRadius.circular(borderRadius),
+              // boxShadow: [BoxShadow(
+  color: Color(0xff1E2E3A),
+  offset: Offset(2, 4),
+  blurRadius: 12,
+)],
+            ),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
+            ),
+          ),
+          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) {
+                return disabled ? kDarkThemeGrey : pressedColor;
+              }
+              return disabled ? Color(0xff6C768E) : Colors.transparent;
+            },
+          ),
+          elevation: MaterialStateProperty.resolveWith<double>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) return 0.0;
+              return 8.0;
+            },
+          ),
+          shadowColor: MaterialStateProperty.all(
+            disabled || noShadow
+                ? Colors.transparent
+                : isDark
+                    ? const Color.fromRGBO(197, 103, 229, 0.18)
+                    : const Color.fromRGBO(83, 32, 100, 0.3),
+          ),
+          splashFactory: NoSplash.splashFactory,
+          padding: MaterialStateProperty.all(
+              padding != null ? EdgeInsets.all(padding!) : null),
+        ),
+        child: customContent
+            ? customContentWidget
+            : AutoSizeText(
+                title,
+                style: TextStyle(
+                  fontFamily: 'Mont',
+                  fontWeight: FontWeight.w700,
+                  color: isDark && disabled
+                      ? Color(0xffF9FBFF)
+                      : isDark
+                          ? Color(0xff202531)
+                          : Colors.white,
+                  fontSize: shrinkText ? 11.4 : 14,
+                ),
+              ),
+      ),
+    );
+  }
+}
+
