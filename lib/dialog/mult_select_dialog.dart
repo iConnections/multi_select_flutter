@@ -312,7 +312,10 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                 ),
               ),
       ),
-                 Container(
+              
+      actions: <Widget>[
+        Column(children:[
+             Container(
             height: 1,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -326,8 +329,6 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   ),
                 ),
               ),
-      actions: <Widget>[
-        Column(children:[
         Center(child:
                Container(
                  margin: EdgeInsets.only(top: 16, bottom: 16),
