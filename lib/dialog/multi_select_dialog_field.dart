@@ -16,9 +16,7 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
 
   /// Set text that is displayed on the button.
   final Text? buttonText;
-  
-  final String buttonString;
-  final bool isDark;
+ 
 
   /// Specify the button icon.
   final Icon? buttonIcon;
@@ -103,8 +101,6 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
   MultiSelectDialogField({
     required this.items,
     required this.onConfirm,
-    required this.buttonString,
-    required this.isDark,
     this.title,
     this.buttonText,
     this.buttonIcon,
