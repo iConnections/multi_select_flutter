@@ -164,9 +164,14 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
     return Container(
       padding: const EdgeInsets.all(3.0),
       child: Container(
-        height: 36,
+        height: 35,
         padding: EdgeInsets.only(left:1.5, right: 1.5, top: 0, bottom: 0),
               decoration: BoxDecoration(
+                boxShadow: _selectedValues.contains(item.value) ? [BoxShadow(
+  color: Color.fromRGBO(58, 64, 207, 0.26),
+  offset: Offset(4, 4),
+  blurRadius: 25,
+)] : [],
                 borderRadius: BorderRadius.circular(6),
         gradient: _selectedValues.contains(item.value) ? LinearGradient(
   begin: Alignment.topRight,
