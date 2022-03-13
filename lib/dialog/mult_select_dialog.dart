@@ -111,8 +111,6 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
      this.buttonText = 'OK',
     this.tooManyText = 'Too many',
      this.isDark = false,
-    this.controller,
-    this.tooManyText,
   });
 
   @override
