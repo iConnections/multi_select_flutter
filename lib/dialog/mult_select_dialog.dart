@@ -58,10 +58,10 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
   final Color? unselectedColor;
 
   /// Icon button that shows the search field.
-  final Icon? searchIcon;
+  final Widget? searchIcon;
 
   /// Icon button that hides the search field
-  final Icon? closeSearchIcon;
+  final Widget? closeSearchIcon;
 
   /// Style the text on the chips or list tiles.
   final TextStyle? itemsTextStyle;
