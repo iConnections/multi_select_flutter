@@ -333,7 +333,9 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                               onTap: () {
                                 widget.controller!.text = '';
 
-                                ///update value to ''
+                                 setState(() {
+                              _items = widget.updateSearchQuery('', widget.items);
+                            });
                               },
                               child: widget.controller!.text == ''
                                   ? widget.searchIcon
