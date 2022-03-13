@@ -15,6 +15,10 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
 
   /// The text at the top of the dialog.
   final Widget? title;
+  
+  final int? maxItems;
+  
+  final String? tooManyText;
 
   /// Fires when the an item is selected / unselected.
   final void Function(List<V>)? onSelectionChanged;
@@ -101,11 +105,13 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
     this.itemsTextStyle,
     this.searchHintStyle,
     this.searchTextStyle,
+    this.maxItems,
     this.selectedItemsTextStyle,
     this.checkColor,
      this.buttonText = 'OK',
      this.isDark = false,
     this.controller,
+    this.tooManyText,
   });
 
   @override
@@ -230,6 +236,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
           if (widget.onSelectionChanged != null) {
             widget.onSelectionChanged!(_selectedValues);
           }
+         
         },
       ),
        ),
@@ -416,11 +423,13 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                 margin: const EdgeInsets.only(top: 16, bottom: 16),
                 child: DefaultButton(
                   isDark: widget.isDark,
-                  title: widget.buttonText,
+                  title: _selectedValues.length <= widget.maxItems ? widget.buttonText : widget.tooManyText,
                   width: MediaQuery.of(context).size.width / 1.5,
                   onPressed: () {
+                  if(_selectedValues.length <= widget.maxItems){
                     widget.onConfirmTap(
                         context, _selectedValues, widget.onConfirm);
+                  }
                   },
                 ),
               ),
