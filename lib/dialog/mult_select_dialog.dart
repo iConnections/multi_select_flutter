@@ -18,7 +18,7 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
   
   final int maxItems;
   
-  final String? tooManyText;
+  final String tooManyText;
 
   /// Fires when the an item is selected / unselected.
   final void Function(List<V>)? onSelectionChanged;
@@ -109,6 +109,7 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
     this.selectedItemsTextStyle,
     this.checkColor,
      this.buttonText = 'OK',
+    this.tooManyText = 'Too many',
      this.isDark = false,
     this.controller,
     this.tooManyText,
