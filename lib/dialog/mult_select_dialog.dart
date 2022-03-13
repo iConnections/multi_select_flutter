@@ -192,6 +192,9 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   fontSize: widget.selectedItemsTextStyle != null
                       ? widget.selectedItemsTextStyle!.fontSize
                       : null,
+                fontWeight: widget.selectedItemsTextStyle != null
+                      ? widget.selectedItemsTextStyle!.fontWeight
+                      : null,
                 )
               : widget.itemsTextStyle,
         ),
