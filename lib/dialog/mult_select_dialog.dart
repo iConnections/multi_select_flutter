@@ -16,7 +16,7 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
   /// The text at the top of the dialog.
   final Widget? title;
   
-  final int? maxItems;
+  final int maxItems;
   
   final String? tooManyText;
 
@@ -105,7 +105,7 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
     this.itemsTextStyle,
     this.searchHintStyle,
     this.searchTextStyle,
-    this.maxItems,
+    this.maxItems = 1000,
     this.selectedItemsTextStyle,
     this.checkColor,
      this.buttonText = 'OK',
