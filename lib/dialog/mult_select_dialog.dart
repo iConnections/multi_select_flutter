@@ -279,7 +279,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               cardWidth: MediaQuery.of(context).size.width,
               radius: 8,
               isDark: widget.isDark,
-              darkModeColor: Color(0xffF8F9FC),
+              darkModeColor: Color(0xff1C212B),
               child: CustomPaint(
                 painter: CardBorderGradientPainter(
                   strokeWidth: 1,
