@@ -163,7 +163,9 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   Widget _buildChipItem(MultiSelectItem<V> item) {
     return Container(
       padding: const EdgeInsets.all(2.0),
-      decoration: BoxDecoration(
+      child: Container(
+        padding: EdgeInsets.all(1),
+              decoration: BoxDecoration(
         gradient: _selectedValues.contains(item.value) ? LinearGradient(
   begin: Alignment.topRight,
   end: Alignment.bottomLeft,
@@ -172,7 +174,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
     Color(0xff8840A0),
   ],
 ) : null, ),
-      child: ChoiceChip(
+        child: ChoiceChip(
         backgroundColor: widget.unselectedColor,
         shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -223,7 +225,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
           }
         },
       ),
-       
+       ),
     );
   }
 
