@@ -162,10 +162,10 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   /// Returns a ChoiceChip
   Widget _buildChipItem(MultiSelectItem<V> item) {
     return Container(
-      padding: const EdgeInsets.all(2.0),
+      padding: const EdgeInsets.all(3.0),
       child: Container(
         height: 36,
-        padding: EdgeInsets.only(left:1, right: 1, top: 0, bottom: 0),
+        padding: EdgeInsets.only(left:1.5, right: 1.5, top: 0, bottom: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
         gradient: _selectedValues.contains(item.value) ? LinearGradient(
