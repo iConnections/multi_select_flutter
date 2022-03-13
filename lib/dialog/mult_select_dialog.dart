@@ -297,15 +297,15 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                                 maxHeight: 22, maxWidth: 22),
                             suffixIcon: GestureDetector(
                               onTap: () {
-                                widget.controller.text = '';
+                                widget.controller!.text = '';
 
                                 ///update value to ''
                               },
-                              child: widget.controller.text == ''
+                              child: widget.controller!.text == ''
                                   ? widget.searchIcon
                                   : widget.closeSearchIcon,
                             ),
-                            hintText: widget.hintText,
+                            hintText: widget.searchHint,
                             hintStyle: TextStyle(
                               color: widget.isDark
                                   ? Color(0xff657393)
@@ -536,7 +536,7 @@ class CardShadow extends StatelessWidget {
     required this.radius,
     required this.child,
     this.noShadow = false,
-    this.darkModeColor = Color(0xff1C212B),
+    this.darkModeColor = const Color(0xff1C212B),
   }) : super(key: key);
 
   @override
