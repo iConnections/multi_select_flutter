@@ -77,6 +77,8 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
 
   /// Set the color of the check in the checkbox
   final Color? checkColor;
+  
+  final TextEditingController? controller;
 
   MultiSelectDialog({
     required this.items,
@@ -103,6 +105,7 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
     this.checkColor,
      this.buttonText = 'OK',
      this.isDark = false,
+    this.controller,
   });
 
   @override
@@ -210,92 +213,144 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   Widget build(BuildContext context) {
     return AlertDialog(
       titlePadding: EdgeInsets.zero,
-      backgroundColor: widget.backgroundColor,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(16),
         ),
-      ),title:
-      Container(
-              child: Column(children:[
-                widget.title!,
-                        Container(
+      ),
+      title: Column(
+        children: [
+          widget.title!,
+          Container(
             height: 1,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors:  const [
-                            Color.fromRGBO(48, 132, 215, 0.08),
-                            Color.fromRGBO(48, 132, 215, 0.4),
-                            Color.fromRGBO(36, 215, 204, 0.08)
-                          ],
-                  ),
-                ),
-              ),
-                Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                Expanded(
-                          child: Container(
-                            padding: EdgeInsets.only(left: 10),
-                            child: TextField(
-                              style: widget.searchTextStyle,
-                              decoration: InputDecoration(
-                                hintStyle: widget.searchHintStyle,
-                                hintText: widget.searchHint ?? "Search",
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: widget.selectedColor ??
-                                        Theme.of(context).primaryColor,
-                                  ),
-                                ),
-                              ),
-                              onChanged: (val) {
-                                setState(() {
-                                  _items = widget.updateSearchQuery(
-                                      val, widget.items);
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                  IconButton(
-                    icon:  widget.closeSearchIcon ?? Icon(Icons.close),
-                    onPressed: () {
-//                       setState(() {
-//                         _showSearch = !_showSearch;
-//                         if (!_showSearch) _items = widget.items;
-//                       });
-                    },
-                  ),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Color.fromRGBO(48, 132, 215, 0.08),
+                  Color.fromRGBO(48, 132, 215, 0.4),
+                  Color.fromRGBO(36, 215, 204, 0.08)
                 ],
               ),
-                        Container(
-            height: 1,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors:  const [
-                            Color.fromRGBO(48, 132, 215, 0.08),
-                            Color.fromRGBO(48, 132, 215, 0.4),
-                            Color.fromRGBO(36, 215, 204, 0.08)
-                          ],
-                  ),
-                ),
-              ),
-                ],
-                            ),
             ),
+          ),
+          Container(
+            color: widget.isDark ? kDarkBackgroundColor100 : Colors.white,
+            margin: const EdgeInsets.only(right: 8, bottom: 8),
+            child: CustomCardShadow(
+              noShadow: true,
+              cardHeight: 48,
+              cardWidth: MediaQuery.of(context).size.width,
+              radius: 8,
+              isDark: widget.isDark,
+              darkModeColor: kDarkBackgroundColor,
+              child: CustomPaint(
+                painter: CustomCardBorderGradientPainter(
+                  strokeWidth: 1,
+                  radius: 8,
+                  gradient: widget.isDark
+                      ? kDarkBorderGradientVertical
+                      : kBorderGradientVertical,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.only(left: 17, right: 17),
+                  height: 48,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: MediaQuery.of(context).size.width,
+                    minHeight: 48,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: widget.controller,
+                          style: TextStyle(
+                            color: widget.isDark
+                                ? kDarkThemeTextColor
+                                : kTextColor,
+                          ),
+                          cursorColor:
+                              widget.isDark ? kDarkThemeGrey : kMainColor,
+                          textCapitalization: TextCapitalization.sentences,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.zero,
+                            suffixIconConstraints: const BoxConstraints(
+                                maxHeight: 22, maxWidth: 22),
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                widget.controller.text = '';
+
+                                ///update value to ''
+                              },
+                              child: widget.controller.text == ''
+                                  ? CustomIcon(
+                                      iconName: 'Search',
+                                      isDark: widget.isDark,
+                                      size: 22,
+                                      color: widget.isDark
+                                          ? kDarkThemeTextColor200
+                                          : kTextColor200,
+                                    )
+                                  : CustomIcon(
+                                      iconName: 'Close',
+                                      isDark: widget.isDark,
+                                      size: 22,
+                                      color: widget.isDark
+                                          ? kDarkThemeTextColor200
+                                          : kTextColor200,
+                                    ),
+                            ),
+                            hintText: widget.hintText,
+                            hintStyle: TextStyle(
+                              color: widget.isDark
+                                  ? kDarkThemeTextColor200
+                                  : kTextColor300,
+                              fontSize: 14,
+                            ),
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide.none),
+                          ),
+                          onChanged: (val) {
+                            setState(() {
+                              _items = widget.updateSearchQuery(val, widget.items);
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            height: 1,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Color.fromRGBO(48, 132, 215, 0.08),
+                  Color.fromRGBO(48, 132, 215, 0.4),
+                  Color.fromRGBO(36, 215, 204, 0.08)
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
       contentPadding:
           widget.listType == null || widget.listType == MultiSelectListType.LIST
-              ? EdgeInsets.only(top: 12.0)
+              ? const EdgeInsets.only(top: 12.0)
               : EdgeInsets.zero,
       insetPadding: const EdgeInsets.all(16.0),
-      content:
-      Container(
-        padding: EdgeInsets.only(left: 16, right: 16),
+      content: Container(
+        padding: const EdgeInsets.only(left: 16, right: 16),
         height: widget.height,
         width: MediaQuery.of(context).size.width - 32,
         child: widget.listType == null ||
@@ -312,155 +367,154 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                 ),
               ),
       ),
-              
       actions: <Widget>[
-        Column(children:[
-             Container(
-            height: 1,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors:  const [
-                            Color.fromRGBO(48, 132, 215, 0.08),
-                            Color.fromRGBO(48, 132, 215, 0.4),
-                            Color.fromRGBO(36, 215, 204, 0.08)
-                          ],
-                  ),
+        Column(
+          children: [
+            Container(
+              height: 1,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    Color.fromRGBO(48, 132, 215, 0.08),
+                    Color.fromRGBO(48, 132, 215, 0.4),
+                    Color.fromRGBO(36, 215, 204, 0.08)
+                  ],
                 ),
               ),
-        Center(child:
-               Container(
-                 margin: EdgeInsets.only(top: 16, bottom: 16),
-                 child:
-   CustomDefaultButton(
-     isDark: widget.isDark,
-     title: widget.buttonText,
-     width: MediaQuery.of(context).size.width/1.5,
-     
-          onPressed: () {
-            widget.onConfirmTap(context, _selectedValues, widget.onConfirm);
-          },
-        ),
-                 ),
-               ),
+            ),
+            Center(
+              child: Container(
+                margin: const EdgeInsets.only(top: 16, bottom: 16),
+                child: CustomDefaultButton(
+                  isDark: widget.isDark,
+                  title: 'widget.buttonText',
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  onPressed: () {
+                    widget.onConfirmTap(
+                        context, _selectedValues, widget.onConfirm);
+                  },
+                ),
+              ),
+            ),
           ],
-               ),
+        ),
       ],
     );
   }
 }
 
-class CustomDefaultButton extends StatelessWidget {
-  final bool isDark;
-  final String title;
-  final VoidCallback onPressed;
-  final bool disabled;
-  final LinearGradient colorGradient;
-  final Color pressedColor;
-  final double height;
-  final double? width;
-  final bool customContent;
-  final Widget? customContentWidget;
-  final double borderRadius;
-  final bool shrinkText;
-  final Color? changeColor;
-  final double? padding;
-  final bool noShadow;
+// class CustomDefaultButton extends StatelessWidget {
+//   final bool isDark;
+//   final String title;
+//   final VoidCallback onPressed;
+//   final bool disabled;
+//   final LinearGradient colorGradient;
+//   final Color pressedColor;
+//   final double height;
+//   final double? width;
+//   final bool customContent;
+//   final Widget? customContentWidget;
+//   final double borderRadius;
+//   final bool shrinkText;
+//   final Color? changeColor;
+//   final double? padding;
+//   final bool noShadow;
 
-  const CustomDefaultButton({
-    Key? key,
-    Color pressedColor = const Color(0xff692B7E),
-    required this.isDark,
-    required this.title,
-    required this.onPressed,
-    this.customContentWidget,
-    this.changeColor,
-    this.padding,
-    this.disabled = false,
-    LinearGradient? colorGradient,
-    this.height = 48,
-    this.width,
-    this.customContent = false,
-    this.borderRadius = 10,
-    this.shrinkText = false,
-    this.noShadow = false,
-  })  : colorGradient = const LinearGradient(
-  begin: Alignment(0, -2),
-  end: Alignment(-1, 2),
-  colors: [Color(0xff692B7E), Color(0xff16061E)],
-),
-        pressedColor = isDark ? const Color(0xff9E41BD) : const Color(0xff692B7E),
-        super(key: key);
+//   const CustomDefaultButton({
+//     Key? key,
+//     Color pressedColor = const Color(0xff692B7E),
+//     required this.isDark,
+//     required this.title,
+//     required this.onPressed,
+//     this.customContentWidget,
+//     this.changeColor,
+//     this.padding,
+//     this.disabled = false,
+//     LinearGradient? colorGradient,
+//     this.height = 48,
+//     this.width,
+//     this.customContent = false,
+//     this.borderRadius = 10,
+//     this.shrinkText = false,
+//     this.noShadow = false,
+//   })  : colorGradient = const LinearGradient(
+//   begin: Alignment(0, -2),
+//   end: Alignment(-1, 2),
+//   colors: [Color(0xff692B7E), Color(0xff16061E)],
+// ),
+//         pressedColor = isDark ? const Color(0xff9E41BD) : const Color(0xff692B7E),
+//         super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      decoration: disabled
-          ? const BoxDecoration(color: Colors.transparent)
-          : BoxDecoration(
-              gradient: changeColor != null
-                  ? LinearGradient(colors: [changeColor!, changeColor!])
-                  : isDark
-                      ? LinearGradient(
-  begin: Alignment(-2, -1),
-  end: Alignment(1, 1),
-  colors: [Color(0xff7D4092), Color(0xffE288FF)],
-)
-                      : colorGradient,
-              borderRadius: BorderRadius.circular(borderRadius),
-            ),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-            ),
-          ),
-          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.pressed)) {
-                return disabled ? Color(0xff6C768E) : pressedColor;
-              }
-              return disabled ? Color(0xff6C768E) : Colors.transparent;
-            },
-          ),
-          elevation: MaterialStateProperty.resolveWith<double>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.pressed)) return 0.0;
-              return 8.0;
-            },
-          ),
-          shadowColor: MaterialStateProperty.all(
-            disabled || noShadow
-                ? Colors.transparent
-                : isDark
-                    ? const Color.fromRGBO(197, 103, 229, 0.18)
-                    : const Color.fromRGBO(83, 32, 100, 0.3),
-          ),
-          splashFactory: NoSplash.splashFactory,
-          padding: MaterialStateProperty.all(
-              padding != null ? EdgeInsets.all(padding!) : null),
-        ),
-        child: customContent
-            ? customContentWidget
-            : AutoSizeText(
-                title,
-                style: TextStyle(
-                  fontFamily: 'Mont',
-                  fontWeight: FontWeight.w700,
-                  color: isDark && disabled
-                      ? Color(0xffF9FBFF)
-                      : isDark
-                          ? Color(0xff202531)
-                          : Colors.white,
-                  fontSize: shrinkText ? 11.4 : 14,
-                ),
-              ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: height,
+//       width: width,
+//       decoration: disabled
+//           ? const BoxDecoration(color: Colors.transparent)
+//           : BoxDecoration(
+//               gradient: changeColor != null
+//                   ? LinearGradient(colors: [changeColor!, changeColor!])
+//                   : isDark
+//                       ? LinearGradient(
+//   begin: Alignment(-2, -1),
+//   end: Alignment(1, 1),
+//   colors: [Color(0xff7D4092), Color(0xffE288FF)],
+// )
+//                       : colorGradient,
+//               borderRadius: BorderRadius.circular(borderRadius),
+//             ),
+//       child: ElevatedButton(
+//         onPressed: onPressed,
+//         style: ButtonStyle(
+//           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+//             RoundedRectangleBorder(
+//               borderRadius: BorderRadius.circular(borderRadius),
+//             ),
+//           ),
+//           backgroundColor: MaterialStateProperty.resolveWith<Color>(
+//             (Set<MaterialState> states) {
+//               if (states.contains(MaterialState.pressed)) {
+//                 return disabled ? Color(0xff6C768E) : pressedColor;
+//               }
+//               return disabled ? Color(0xff6C768E) : Colors.transparent;
+//             },
+//           ),
+//           elevation: MaterialStateProperty.resolveWith<double>(
+//             (Set<MaterialState> states) {
+//               if (states.contains(MaterialState.pressed)) return 0.0;
+//               return 8.0;
+//             },
+//           ),
+//           shadowColor: MaterialStateProperty.all(
+//             disabled || noShadow
+//                 ? Colors.transparent
+//                 : isDark
+//                     ? const Color.fromRGBO(197, 103, 229, 0.18)
+//                     : const Color.fromRGBO(83, 32, 100, 0.3),
+//           ),
+//           splashFactory: NoSplash.splashFactory,
+//           padding: MaterialStateProperty.all(
+//               padding != null ? EdgeInsets.all(padding!) : null),
+//         ),
+//         child: customContent
+//             ? customContentWidget
+//             : AutoSizeText(
+//                 title,
+//                 style: TextStyle(
+//                   fontFamily: 'Mont',
+//                   fontWeight: FontWeight.w700,
+//                   color: isDark && disabled
+//                       ? Color(0xffF9FBFF)
+//                       : isDark
+//                           ? Color(0xff202531)
+//                           : Colors.white,
+//                   fontSize: shrinkText ? 11.4 : 14,
+//                 ),
+//               ),
+//       ),
+//     );
+//   }
+// }
