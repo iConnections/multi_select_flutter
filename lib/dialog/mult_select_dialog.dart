@@ -163,37 +163,18 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   Widget _buildChipItem(MultiSelectItem<V> item) {
     return Container(
       padding: const EdgeInsets.all(2.0),
-      child:
-      CardShadow(
-              noShadow: !_selectedValues.contains(item.value),
-              radius: 6,
-              isDark: widget.isDark,
-              darkModeColor: Color(0xffF8F9FC),
-              child: CustomPaint(
-                painter: CardBorderGradientPainter(
-                  strokeWidth: 1,
-                  radius: 6,
-                  gradient: widget.isDark
-                      ? LinearGradient(
-  begin: Alignment.topCenter,
-  end: Alignment.bottomCenter,
+      decoration: BoxDecoration(
+        gradient: _selectedValues.contains(item.value) ? LinearGradient(
+  begin: Alignment.topRight,
+  end: Alignment.bottomLeft,
   colors: [
-   _selectedValues.contains(item.value) ? Color(0xff40ACD7) : Colors.transparent,
-    _selectedValues.contains(item.value) ? Color(0xffB770CE) : Colors.transparent,
+    Color(0xffAEF3FF),
+    Color(0xff8840A0),
   ],
-)
-                      : LinearGradient(
-  begin: Alignment.topCenter,
-  end: Alignment.bottomCenter,
-  colors: [
-   _selectedValues.contains(item.value) ? Color(0xffAEF3FF) : Colors.transparent,
-   _selectedValues.contains(item.value) ? Color(0xff8840A0) : Colors.transparent,
-  ],
-),
-                ),
+) : null, ),
       child: ChoiceChip(
         backgroundColor: widget.unselectedColor,
-        avatarBorder: const RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(6),
         ),
@@ -242,8 +223,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
           }
         },
       ),
-                ),
-        ),
+       
     );
   }
 
