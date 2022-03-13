@@ -237,7 +237,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
           ),
           Container(
             color: widget.isDark ? Color(0xff242A37) : Colors.white,
-            margin: const EdgeInsets.only(right: 8, bottom: 8),
+            margin: const EdgeInsets.only(right: 16, bottom: 8, top: 8, left: 16),
             child: CardShadow(
               noShadow: true,
               cardHeight: 48,
@@ -389,7 +389,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                 margin: const EdgeInsets.only(top: 16, bottom: 16),
                 child: DefaultButton(
                   isDark: widget.isDark,
-                  title: 'widget.buttonText',
+                  title: widget.buttonText,
                   width: MediaQuery.of(context).size.width / 1.5,
                   onPressed: () {
                     widget.onConfirmTap(
