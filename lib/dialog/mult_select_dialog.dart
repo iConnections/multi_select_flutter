@@ -422,6 +422,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               child: Container(
                 margin: const EdgeInsets.only(top: 16, bottom: 16),
                 child: DefaultButton(
+                  disabled: _selectedValues.length > widget.maxItems,
                   isDark: widget.isDark,
                   title: _selectedValues.length <= widget.maxItems ? widget.buttonText : widget.tooManyText,
                   width: MediaQuery.of(context).size.width / 1.5,
