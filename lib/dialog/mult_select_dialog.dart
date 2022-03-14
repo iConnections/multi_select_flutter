@@ -24,6 +24,8 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
   final String tooManyText;
   
   final dynamic searchState;
+  
+  final bool isLoading;
 
   /// Fires when the an item is selected / unselected.
   final void Function(List<V>)? onSelectionChanged;
@@ -118,6 +120,7 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
      this.isDark = false,
     this.controller,
     this.searchState,
+    this.isLoading = false,
   });
 
   @override
@@ -465,7 +468,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
         padding: const EdgeInsets.only(left: 16, right: 16),
         height: widget.height,
         width: MediaQuery.of(context).size.width - 32,
-        child: widget.listType == null ||
+        child: widget.isLoading ? Text('Searching') : widget.listType == null ||
                 widget.listType == MultiSelectListType.LIST
             ? ListView.builder(
                 itemCount: _items.length,
