@@ -327,7 +327,10 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
       title: Column(
         children: [
           widget.title!,
-          widget.noSearchBar ? Container() : Container(
+          widget.noSearchBar ? Container() : 
+          Column(
+            children:[
+          Container(
             height: 1,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -450,6 +453,8 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
               ),
             ),
           ),
+              ],
+            ),
         ],
       ),
       contentPadding:
