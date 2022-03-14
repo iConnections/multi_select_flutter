@@ -168,7 +168,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                         Text(
                           item.label,
                           style: TextStyle(
-                            color: isDark ? Color(0xffF9FBFF) : Color(0xff202531),
+                            color: widget.isDark ? Color(0xffF9FBFF) : Color(0xff202531),
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                           ),
@@ -857,6 +857,169 @@ class CustomCachedImage extends StatelessWidget {
                 ),
               );
             });
+  }
+}
+
+class CustomCheckbox extends StatelessWidget {
+  final bool isDark;
+  final VoidCallback onTap;
+  final bool isChecked;
+  final bool disabled;
+
+  const CustomCheckbox({
+    Key? key,
+    required this.isDark,
+    required this.onTap,
+    this.isChecked = false,
+    this.disabled = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: isChecked && isDark
+                  ? const LinearGradient(
+                      colors: [Color(0xff73E1FF), Color(0xff1F72A4)],
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                    )
+                  : isChecked
+                      ? LinearGradient(
+  begin: Alignment.topRight,
+  end: Alignment.bottomLeft,
+  colors: [kSecondaryColor700, Color(0xff03456C)],
+)
+                      : null,
+              // color: Colors.white,
+              boxShadow: disabled
+                  ? []
+                  : [
+                      isChecked && isDark
+                          ? BoxShadow(
+  color: Color.fromRGBO(58, 64, 207, 0.26),
+  offset: Offset(4, 4),
+  blurRadius: 25,
+)
+                          : isChecked
+                              ? BoxShadow(
+  color: Color.fromRGBO(121, 98, 249, 0.13),
+  offset: Offset(2, 4),
+  blurRadius: 12,
+)
+                              : isDark
+                                  ? const BoxShadow(
+                                      color: Color.fromRGBO(27, 27, 27, 0.28),
+                                      offset: Offset(2, 2),
+                                      blurRadius: 4,
+                                    )
+                                  : const BoxShadow(
+                                      color:
+                                          Color.fromRGBO(196, 180, 155, 0.28),
+                                      offset: Offset(2, 2),
+                                      blurRadius: 4,
+                                    ),
+                    ],
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+          CustomPaint(
+            painter: isChecked
+                ? null
+                : CustomCardBorderGradientPainter(
+                    strokeWidth: 1,
+                    radius: 5,
+                    gradient: disabled
+                        ? const LinearGradient(
+                            colors: [Color(0xffA1A7B5), Color(0xffA1A7B5)])
+                        : isDark
+                            ? LinearGradient(
+  begin: Alignment.topRight,
+  end: Alignment.bottomLeft,
+  colors: [
+    Color(0xff40ACD7),
+    Color(0xffB770CE),
+  ],
+)
+                            : LinearGradient(
+  begin: Alignment.topRight,
+  end: Alignment.bottomLeft,
+  colors: [
+    Color(0xffAEF3FF),
+    Color(0xff8840A0),
+  ],
+),
+                  ),
+            child: Container(
+              padding: isChecked
+                  ? const EdgeInsets.only(
+                      left: 5, right: 5, top: 5.5, bottom: 5.5)
+                  : EdgeInsets.zero,
+              margin: isChecked ? EdgeInsets.zero : const EdgeInsets.all(1),
+              decoration: BoxDecoration(
+                color: isDark ? Color(0xff1C212B) : Colors.white,
+                gradient: isChecked && isDark
+                    ? const LinearGradient(
+                        colors: [Color(0xff73E1FF), Color(0xff1F72A4)],
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                      )
+                    : isChecked
+                        ? LinearGradient(
+  begin: Alignment.topRight,
+  end: Alignment.bottomLeft,
+  colors: [kSecondaryColor700, Color(0xff03456C)],
+)
+                        : null,
+                boxShadow: disabled
+                    ? []
+                    : [
+                        isChecked && isDark
+                            ? BoxShadow(
+  color: Color.fromRGBO(58, 64, 207, 0.26),
+  offset: Offset(4, 4),
+  blurRadius: 25,
+)
+                            : isChecked
+                                ? BoxShadow(
+  color: Color.fromRGBO(121, 98, 249, 0.13),
+  offset: Offset(2, 4),
+  blurRadius: 12,
+)
+                                : isDark
+                                    ? const BoxShadow(
+                                        color: Color.fromRGBO(27, 27, 27, 0.28),
+                                        offset: Offset(2, 2),
+                                        blurRadius: 4,
+                                      )
+                                    : const BoxShadow(
+                                        color:
+                                            Color.fromRGBO(196, 180, 155, 0.28),
+                                        offset: Offset(2, 2),
+                                        blurRadius: 4,
+                                      ),
+                      ],
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: isChecked
+                  ? Icon(
+                    Icons.check_rounded,
+                      size: 9,
+                      color: isDark ? Color(0xff202531) : Colors.white,
+                    )
+                  : const SizedBox(
+                      height: 19,
+                      width: 19,
+                    ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
