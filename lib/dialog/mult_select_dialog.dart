@@ -153,8 +153,8 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   ),
                   child: CustomAvatar(
                     ///customAvatarWidget
-                    imageUrl: '',
-                    initials: 'HI',
+                    imageUrl: item.imageUrl,
+                    initials: item.initials,
                     isDark: widget.isDark,
                     size: 40,
                   ),
