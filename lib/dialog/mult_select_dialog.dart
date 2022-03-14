@@ -139,7 +139,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   /// Returns a CheckboxListTile
   Widget _buildListItem(MultiSelectItem<V> item) {
     return Container(
-        color: widget.isDark ? Color(0xff242A37) : Color(0xff242A37),
+        color: widget.isDark ? Color(0xff242A37) : Color(0xffF8F9FC),
         child: Column(
           children: [
             Row(
