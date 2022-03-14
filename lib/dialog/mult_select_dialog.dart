@@ -194,7 +194,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                   onTap: () {
                     setState(() {
                       _selectedValues = widget.onItemCheckedChange(
-                          _selectedValues, item.value, _selectedValues.contains(item.value));
+                          _selectedValues, item.value, !_selectedValues.contains(item.value));
                     });
                     if (widget.onSelectionChanged != null) {
                       widget.onSelectionChanged!(_selectedValues);
