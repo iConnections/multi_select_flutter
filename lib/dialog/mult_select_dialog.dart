@@ -138,6 +138,17 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
 
   /// Returns a CheckboxListTile
   Widget _buildListItem(MultiSelectItem<V> item) {
+        String getCompanyJobTitleText(String company, String jobTitle) {
+      if (company == '' && jobTitle == '') {
+        return '';
+      } else if (company == '') {
+        return jobTitle;
+      } else if (jobTitle == '') {
+        return company;
+      } else {
+        return '$company, $jobTitle';
+      }
+    }
     return Container(
         color: widget.isDark ? Color(0xff242A37) : Color(0xffF8F9FC),
         child: Column(
@@ -173,16 +184,16 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-//                         Text(
-//                           getCompanyJobTitleText(
-//                               itemModel.contacts[4].companyName,
-//                               itemModel.contacts[4].jobTitle),
-//                           style: TextStyle(
-//                             color:
-//                                 isDark ? kDarkThemeTextColor400 : kTextColor400,
-//                             fontSize: 12,
-//                           ),
-//                         ),
+                        Text(
+                          getCompanyJobTitleText(
+                              item.companyName,
+                              item.jobTitle),
+                          style: TextStyle(
+                            color:
+                                isDark ? kDarkThemeTextColor400 : kTextColor400,
+                            fontSize: 12,
+                          ),
+                        ),
                       ],
                     ),
                   ),
