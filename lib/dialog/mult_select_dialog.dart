@@ -136,7 +136,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   /// Returns a CheckboxListTile
   Widget _buildListItem(MultiSelectItem<V> item) {
     return Container(
-        color: isDark ? kDarkBackgroundColor100 : kLightBackgroundColor,
+        color: widget.isDark ? Color(0xff242A37) : Color(0xff242A37),
         child: Column(
           children: [
             Row(
@@ -165,7 +165,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                         Text(
                           item.label,
                           style: TextStyle(
-                            color: isDark ? kDarkThemeTextColor : kTextColor,
+                            color: isDark ? Color(0xffF9FBFF) : Color(0xff202531),
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                           ),
@@ -186,7 +186,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                 ),
                 const SizedBox(width: 16),
                 CustomCheckbox(
-                  isDark: isDark,
+                  isDark: widget.isDark,
                   isChecked: _selectedValues.contains(item.value),
                   onTap: () {
                     setState(() {
