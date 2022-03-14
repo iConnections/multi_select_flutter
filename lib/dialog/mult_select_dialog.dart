@@ -129,6 +129,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
     super.initState();
     if (widget.initialValue != null) {
       _selectedValues.addAll(widget.initialValue!);
+      print(_selectedValues);
     }
   }
 
