@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ßimport 'package:flutter/material.dart';
 import '../util/multi_select_actions.dart';
 import '../util/multi_select_item.dart';
 import '../util/multi_select_list_type.dart';
@@ -1008,7 +1008,7 @@ class CustomCheckbox extends StatelessWidget {
               child: isChecked
                   ? Icon(
                     Icons.check_rounded,
-                      size: 9,
+                      size: 18,
                       color: isDark ? Color(0xff202531) : Colors.white,
                     )
                   : const SizedBox(
