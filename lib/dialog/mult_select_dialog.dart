@@ -327,7 +327,6 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
       title: Column(
         children: [
           widget.title!,
-          widget.noSearchBar ? Container() : 
           Column(
             children:[
           Container(
@@ -343,7 +342,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                 ],
               ),
             ),
-          ),
+          ),    widget.noSearchBar ? Container(height: 64) : 
           Container(
             color: widget.isDark ? Color(0xff242A37) : Colors.white,
             margin: const EdgeInsets.only(right: 16, bottom: 8, top: 8, left: 16),
