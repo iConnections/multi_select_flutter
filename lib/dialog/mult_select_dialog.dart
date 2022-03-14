@@ -1,4 +1,4 @@
-ßimport 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../util/multi_select_actions.dart';
 import '../util/multi_select_item.dart';
 import '../util/multi_select_list_type.dart';
