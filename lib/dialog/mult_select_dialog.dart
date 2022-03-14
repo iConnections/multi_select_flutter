@@ -190,7 +190,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                               item.jobTitle),
                           style: TextStyle(
                             color:
-                                isDark ? kDarkThemeTextColor400 : kTextColor400,
+                                isDark ? Color(0xffE0E9FF) : Color(0xff394155),
                             fontSize: 12,
                           ),
                         ),
