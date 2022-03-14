@@ -1019,7 +1019,7 @@ class CustomCheckbox extends StatelessWidget {
               child: isChecked
                   ? Icon(
                     Icons.check_rounded,
-                      size: 18,
+                      size: 11,
                       color: isDark ? Color(0xff202531) : Colors.white,
                     )
                   : const SizedBox(
