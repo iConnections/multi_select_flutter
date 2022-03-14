@@ -3,6 +3,9 @@ import '../util/multi_select_actions.dart';
 import '../util/multi_select_item.dart';
 import '../util/multi_select_list_type.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 
 
 /// A dialog containing either a classic checkbox style list, or a chip style list.
@@ -709,4 +712,151 @@ class CardBorderGradientPainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => oldDelegate != this;
 }
 
+class CustomAvatar extends StatelessWidget {
+  final String imageUrl;
+  final String initials;
+  final bool isDark;
+  final double size;
+  final EdgeInsetsGeometry margin;
+  final bool isSmall;
+
+  const CustomAvatar({
+    Key? key,
+    this.imageUrl = '',
+    this.initials = 'X',
+    required this.isDark,
+    required this.size,
+    this.margin = EdgeInsets.zero,
+    this.isSmall = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: margin,
+      height: size,
+      width: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [isDark ? BoxShadow(
+  color: Color.fromRGBO(0, 0, 0, 0.13),
+  offset: Offset(4, 4),
+  blurRadius: 12,
+) : BoxShadow(
+  color: Color.fromRGBO(121, 98, 249, 0.13),
+  offset: Offset(2, 4),
+  blurRadius: 12,
+)],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(360),
+        child: initials == '' && (imageUrl == '')
+            ? Container(
+                color: isDark ? Color(0xff6C768E) : Color(0xffA1A7B5),
+                padding: const EdgeInsets.all(6),
+                child: SvgPicture.asset(
+                  'assets/faceLift/User.svg',
+                  height: size,
+                ),
+              )
+            : (imageUrl == '')
+                ? Container(
+                    padding: EdgeInsets.all(isSmall ? 2 : 5),
+                    color: isDark ? Color(0xff6C768E) : Color(0xffA1A7B5),
+                    child: Center(
+                      child: AutoSizeText(
+                        initials,
+                        maxLines: 1,
+                        maxFontSize: 21,
+                        minFontSize: 8,
+                        // minFontSize: 8,
+                        style: TextStyle(
+                          fontSize: 21,
+                          color: isDark ? Color(0xffE0E9FF) : Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                : CustomCachedImage(
+                    url: imageUrl,
+                    initials: initials,
+                    isDark: isDark,
+                    isSmall: isSmall,
+                    size: size,
+                  ),
+      ),
+    );
+  }
+}
+
+class CustomCachedImage extends StatelessWidget {
+  final String url;
+  final bool isSmall;
+  final bool isDark;
+  final String initials;
+  final double? size;
+
+  const CustomCachedImage({
+    Key? key,
+    required this.url,
+    this.isSmall = false,
+    required this.isDark,
+    this.initials = 'X',
+    this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return url == ''
+        ? ClipRRect(
+            borderRadius: BorderRadius.circular(360),
+            child: Container(
+              padding: EdgeInsets.all(isSmall ? 2 : 5),
+              color: isDark ? Color(0xff6C768E) : Color(0xffA1A7B5),
+              child: Center(
+                child: AutoSizeText(
+                  initials,
+                  maxLines: 1,
+                  maxFontSize: 28,
+                  minFontSize: 8,
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: isDark ? Color(0xffE0E9FF) : Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          )
+        : CachedNetworkImage(
+            memCacheHeight: isSmall ? 200 : null,
+            fit: BoxFit.fitWidth,
+            imageUrl: url,
+            placeholder: (context, url) {
+              return Container();
+            },
+            height: size,
+            width: size,
+            errorWidget: (context, url, error) {
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(360),
+                child: Container(
+                  padding: EdgeInsets.all(isSmall ? 2 : 5),
+                  color: isDark ? Color(0xff6C768E) : Color(0xffA1A7B5),
+                  child: Center(
+                    child: AutoSizeText(
+                      initials,
+                      maxLines: 1,
+                      maxFontSize: 28,
+                      minFontSize: 8,
+                      style: TextStyle(
+                        fontSize: 28,
+                        color: isDark ? Color(0xffE0E9FF) : Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            });
+  }
+}
 
