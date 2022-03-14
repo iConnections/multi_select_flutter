@@ -424,8 +424,8 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                                 borderSide: BorderSide.none),
                           ),
                           onChanged: (val) {
-                            if(searchState != null){
-                              context.read(searchState).updateSearch(val);
+                            if(widget.searchState != null){
+                              context.read(widget.searchState).updateSearch(val);
                             } else {
                             setState(() {
                               _items = widget.updateSearchQuery(val, widget.items);
