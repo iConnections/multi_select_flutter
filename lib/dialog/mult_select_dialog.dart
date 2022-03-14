@@ -135,35 +135,88 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
 
   /// Returns a CheckboxListTile
   Widget _buildListItem(MultiSelectItem<V> item) {
-    return Theme(
-      data: ThemeData(
-        unselectedWidgetColor: widget.unselectedColor ?? Colors.black54,
-        accentColor: widget.selectedColor ?? Theme.of(context).primaryColor,
-      ),
-      child: CheckboxListTile(
-        checkColor: widget.checkColor,
-        value: _selectedValues.contains(item.value),
-        activeColor: widget.colorator != null
-            ? widget.colorator!(item.value) ?? widget.selectedColor
-            : widget.selectedColor,
-        title: Text(
-          item.label,
-          style: _selectedValues.contains(item.value)
-              ? widget.selectedItemsTextStyle
-              : widget.itemsTextStyle,
+    return Container(
+        color: isDark ? kDarkBackgroundColor100 : kLightBackgroundColor,
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(
+                    right: 16,
+                    top: 16,
+                    bottom: 16,
+                  ),
+                  child: CustomAvatar(
+                    ///customAvatarWidget
+                    imageUrl: '',
+                    initials: 'HI',
+                    isDark: widget.isDark,
+                    size: 40,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.label,
+                          style: TextStyle(
+                            color: isDark ? kDarkThemeTextColor : kTextColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+//                         Text(
+//                           getCompanyJobTitleText(
+//                               itemModel.contacts[4].companyName,
+//                               itemModel.contacts[4].jobTitle),
+//                           style: TextStyle(
+//                             color:
+//                                 isDark ? kDarkThemeTextColor400 : kTextColor400,
+//                             fontSize: 12,
+//                           ),
+//                         ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                CustomCheckbox(
+                  isDark: isDark,
+                  isChecked: _selectedValues.contains(item.value),
+                  onTap: () {
+                    setState(() {
+                      _selectedValues = widget.onItemCheckedChange(
+                          _selectedValues, item.value, _selectedValues.contains(item.value));
+                    });
+                    if (widget.onSelectionChanged != null) {
+                      widget.onSelectionChanged!(_selectedValues);
+                    }
+                  },
+                ),
+              ],
+            ),
+            Container(
+              height: 1,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    Color.fromRGBO(48, 132, 215, 0.08),
+                    Color.fromRGBO(48, 132, 215, 0.4),
+                    Color.fromRGBO(36, 215, 204, 0.08)
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-        controlAffinity: ListTileControlAffinity.leading,
-        onChanged: (checked) {
-          setState(() {
-            _selectedValues = widget.onItemCheckedChange(
-                _selectedValues, item.value, checked!);
-          });
-          if (widget.onSelectionChanged != null) {
-            widget.onSelectionChanged!(_selectedValues);
-          }
-        },
-      ),
-    );
+      );
   }
 
   /// Returns a ChoiceChip
