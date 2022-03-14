@@ -5,7 +5,7 @@ import '../util/multi_select_list_type.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 /// A dialog containing either a classic checkbox style list, or a chip style list.
@@ -22,6 +22,8 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
   final int maxItems;
   
   final String tooManyText;
+  
+  final dynamic searchState;
 
   /// Fires when the an item is selected / unselected.
   final void Function(List<V>)? onSelectionChanged;
@@ -115,6 +117,7 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
     this.tooManyText = 'Too many',
      this.isDark = false,
     this.controller,
+    this.searchState,
   });
 
   @override
@@ -421,9 +424,13 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                                 borderSide: BorderSide.none),
                           ),
                           onChanged: (val) {
+                            if(searchState != null){
+                              context.read(searchState).updateSearch(val);
+                            } else {
                             setState(() {
                               _items = widget.updateSearchQuery(val, widget.items);
                             });
+                            }
                           },
                         ),
                       ),
