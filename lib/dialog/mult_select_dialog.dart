@@ -22,11 +22,9 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
   final int maxItems;
   
   final String tooManyText;
+ 
+final bool noSearchBar;
   
-  final dynamic searchState;
-  
-  final bool isLoading;
-
   /// Fires when the an item is selected / unselected.
   final void Function(List<V>)? onSelectionChanged;
 
@@ -119,8 +117,7 @@ class MultiSelectDialog<V> extends StatefulWidget with MultiSelectActions<V> {
     this.tooManyText = 'Too many',
      this.isDark = false,
     this.controller,
-    this.searchState,
-    this.isLoading = false,
+    this.noSearchBar = false,
   });
 
   @override
@@ -330,7 +327,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
       title: Column(
         children: [
           widget.title!,
-          Container(
+          widget.noSearchBar ? Container() : Container(
             height: 1,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -427,13 +424,9 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
                                 borderSide: BorderSide.none),
                           ),
                           onChanged: (val) {
-                            if(widget.searchState != null){
-                              context.read(widget.searchState).updateSearch(val);
-                            } else {
                             setState(() {
                               _items = widget.updateSearchQuery(val, widget.items);
                             });
-                            }
                           },
                         ),
                       ),
@@ -468,7 +461,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
         padding: const EdgeInsets.only(left: 16, right: 16),
         height: widget.height,
         width: MediaQuery.of(context).size.width - 32,
-        child: widget.isLoading ? Text('Searching') : widget.listType == null ||
+        child:  widget.listType == null ||
                 widget.listType == MultiSelectListType.LIST
             ? ListView.builder(
                 itemCount: _items.length,
