@@ -892,7 +892,7 @@ class CustomCheckbox extends StatelessWidget {
                       ? LinearGradient(
   begin: Alignment.topRight,
   end: Alignment.bottomLeft,
-  colors: [kSecondaryColor700, Color(0xff03456C)],
+  colors: [Color(0xff2F8DBA), Color(0xff03456C)],
 )
                       : null,
               // color: Colors.white,
@@ -930,7 +930,7 @@ class CustomCheckbox extends StatelessWidget {
           CustomPaint(
             painter: isChecked
                 ? null
-                : CustomCardBorderGradientPainter(
+                : CardBorderGradientPainter(
                     strokeWidth: 1,
                     radius: 5,
                     gradient: disabled
@@ -972,7 +972,7 @@ class CustomCheckbox extends StatelessWidget {
                         ? LinearGradient(
   begin: Alignment.topRight,
   end: Alignment.bottomLeft,
-  colors: [kSecondaryColor700, Color(0xff03456C)],
+  colors: [Color(0xff2F8DBA), Color(0xff03456C)],
 )
                         : null,
                 boxShadow: disabled
