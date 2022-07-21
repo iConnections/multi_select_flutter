@@ -773,7 +773,7 @@ class CustomAvatar extends StatelessWidget {
                 color: isDark ? Color(0xff6C768E) : Color(0xffA1A7B5),
                 padding: const EdgeInsets.all(6),
                 child: SvgPicture.asset(
-                  'assets/faceLift/User.svg',
+                  'assets/icons/User.svg',
                   height: size,
                 ),
               )
