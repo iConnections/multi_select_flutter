@@ -123,34 +123,7 @@ class _MultiSelectBottomSheetState<V> extends State<MultiSelectBottomSheet<V>> {
 
   /// Returns a CheckboxListTile
   Widget _buildListItem(MultiSelectItem<V> item) {
-    return Theme(
-      data: ThemeData(
-        unselectedWidgetColor: widget.unselectedColor ?? Colors.black54,
-      ),
-      child: CheckboxListTile(
-        checkColor: widget.checkColor,
-        value: _selectedValues.contains(item.value),
-        activeColor: widget.colorator != null
-            ? widget.colorator!(item.value) ?? widget.selectedColor
-            : widget.selectedColor,
-        title: Text(
-          item.label,
-          style: _selectedValues.contains(item.value)
-              ? widget.selectedItemsTextStyle
-              : widget.itemsTextStyle,
-        ),
-        controlAffinity: ListTileControlAffinity.leading,
-        onChanged: (checked) {
-          setState(() {
-            _selectedValues = widget.onItemCheckedChange(
-                _selectedValues, item.value, checked!);
-          });
-          if (widget.onSelectionChanged != null) {
-            widget.onSelectionChanged!(_selectedValues);
-          }
-        },
-      ),
-    );
+    return Container();
   }
 
   /// Returns a ChoiceChip
